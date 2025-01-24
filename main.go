@@ -3,19 +3,18 @@ package main
 import (
 	"fmt"
 	"html/template"
+	"log"
 	"net/http"
 )
 
 type BudgetPageData struct {
 	PageTitle   string
 	BudgetSheet Budget
-	GetDiff     func(float64, float64) float64
 }
 
-//func (b BudgetPageData) GetDiff(f1 float64, f2 float64) float64 {
-//	fmt.Println("called GetDiff")
-//	return f1 - f2
-//}
+func GetDiff(f1 float64, f2 float64) float64 {
+	return f1 - f2
+}
 
 func add_basic_categories(budget *Budget) {
 	err := budget.AddCategory(Category{"Rent", 1375.00, 0})
@@ -53,22 +52,21 @@ func handle_index(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	//	funcMap := template.FuncMap{
-	//		"sub": func(f1 float64, f2 float64) float64 {
-	//			return f1 - f2
-	//		},
-	//	}
-
-	tmpl := template.Must(template.ParseFiles("templates/index.html"))
-	getDiffFunc := func(f1 float64, f2 float64) float64 {
-		return f1 - f2
+	funcMap := template.FuncMap{
+		"diff": GetDiff,
 	}
-	tmpl.Execute(w, BudgetPageData{"Budget time", budget, getDiffFunc})
+
+	tmpl, err := template.New("index.html").Funcs(funcMap).ParseFiles("templates/index.html")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	tmpl.Execute(w, BudgetPageData{"Budget time", budget})
 }
 
 func main() {
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("./static"))))
 	http.HandleFunc("/", handle_index)
 
-	http.ListenAndServe(":8090", nil)
+	log.Fatal(http.ListenAndServe(":8090", nil))
 }

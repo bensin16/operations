@@ -19,6 +19,7 @@
 				<td>{{$cat.Label}}</td>
 				<td>{{printf "%.2f" $cat.Limit}}</td>
 				<td>{{printf "%.2f" $cat.Spent}}</td>
+				<td>{{diff $cat.Limit $cat.Spent}}</td>
 			</tr>
 			{{end}}
 		</table>
