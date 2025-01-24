@@ -6,22 +6,22 @@ import (
 )
 
 type Category struct {
-	label string
-	limit float64
-	spent float64
+	Label string
+	Limit float64
+	Spent float64
 }
 
 type Budget struct {
-	month      time.Month
-	year       int32
-	income     float64
-	categories map[string]Category
+	Month      time.Month
+	Year       int32
+	Income     float64
+	Categories map[string]Category
 }
 
 func (b *Budget) AddCategory(c Category) error {
-	_, ok := b.categories[c.label]
+	_, ok := b.Categories[c.Label]
 	if !ok {
-		b.categories[c.label] = c
+		b.Categories[c.Label] = c
 	} else {
 		return errors.New("CategoryExistsError")
 	}
@@ -32,19 +32,19 @@ func (b *Budget) AddCategory(c Category) error {
 // use pointer to avoid copy? is that a thing? does it matter since im just collecting data?
 func (b Budget) CalculateUnspent() float64 {
 	total_spent := 0.00
-	for _, v := range b.categories {
-		total_spent += v.spent
-		//fmt.Println(v.label, v.spent, "/", v.limit)
+	for _, v := range b.Categories {
+		total_spent += v.Spent
+		//fmt.Println(v.Label, v.Spent, "/", v.Limit)
 	}
 
-	return b.income - total_spent
+	return b.Income - total_spent
 }
 
 func (b *Budget) AddExpense(label string, amount float64) error {
-	cat, ok := b.categories[label]
+	cat, ok := b.Categories[label]
 	if ok {
-		cat.spent = cat.spent + amount
-		b.categories[label] = cat
+		cat.Spent = cat.Spent + amount
+		b.Categories[label] = cat
 	} else {
 		return errors.New("CategoryDoesntExistError")
 	}
