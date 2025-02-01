@@ -15,16 +15,25 @@ func TestSave(t *testing.T) {
 
 	dbFile := filepath.Join(dir, "test.db")
 
-	db := Database{FilePath: dbFile}
+	var userId int64 = 1
+	db := Database{Budgets: make(map[int64]Budget), FilePath: dbFile}
+	db.Budgets[userId] = createBudget(1, 2025, 5196.1)
 
 	if err = db.Save(); err != nil {
 		t.Fatalf("db failed to save")
 	}
 
-	// i guess just check that i can read the file for now, can make better test for actually checking for file contents/"integration" tests for loading a budget when i get there
-	_, err = os.ReadFile(dbFile)
+	actual, err := os.ReadFile(dbFile)
+
+	var expected string = "{\"Month\":1,\"Year\":2025,\"Income\":5196.1,\"Categories\":{}}"
 
 	if err != nil {
 		t.Fatalf("File couldn't be read")
 	}
+
+	if string(actual) != expected {
+		// look at that one page for how to print out the values
+		t.Fatalf("Expected string did not match actual")
+	}
+
 }
