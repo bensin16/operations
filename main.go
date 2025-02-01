@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 type BudgetPageData struct {
@@ -42,7 +43,31 @@ func add_basic_categories(budget *Budget) {
 	}
 }
 
-func handle_index(w http.ResponseWriter, req *http.Request) {
+func handle_index(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		planned, err := strconv.ParseFloat(r.FormValue("planned"), 64)
+		if err != nil {
+			log.Fatal("cant parse planned")
+			// report error to page and return?
+		}
+
+		actual, err := strconv.ParseFloat(r.FormValue("actual"), 64)
+		if err != nil {
+			log.Fatal("cant parse actual")
+			// report error to page and return?
+		}
+
+		newRecord := ExpenseForm{
+			Category: r.FormValue("category"),
+			Planned:  planned,
+			Actual:   actual,
+		}
+
+		fmt.Println(newRecord)
+		// when get new record: add it to the "database"
+		return
+	}
+
 	budget := createBudget(1, 2025, 5195.10)
 	add_basic_categories(&budget)
 
