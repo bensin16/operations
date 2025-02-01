@@ -8,6 +8,9 @@ import (
 	"strconv"
 )
 
+var db = Database{}
+var userId = 0
+
 type BudgetPageData struct {
 	PageTitle   string
 	BudgetSheet Budget
@@ -64,6 +67,7 @@ func handle_index(w http.ResponseWriter, r *http.Request) {
 		}
 
 		fmt.Println(newRecord)
+		db.Save()
 		// when get new record: add it to the "database"
 		return
 	}
