@@ -12,6 +12,12 @@ type BudgetPageData struct {
 	BudgetSheet Budget
 }
 
+type ExpenseForm struct {
+	Category string
+	Planned  float64
+	Actual   float64
+}
+
 func GetDiff(f1 float64, f2 float64) float64 {
 	return f1 - f2
 }

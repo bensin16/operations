@@ -1,13 +1,64 @@
+/* https://colorffy.com/dark-theme-generator?colors=5a00b5-121212 */
+/* Primary tints - buttons, links, primary elements
+ * #5a00b5
+ * #702cbe
+ * #8548c7
+ * #9862cf
+ * #ab7bd8
+ * #bc95e0
+ *
+ * Surface colors - cards, backgrounds
+ * #121212
+ * #282828
+ * #3f3f3f
+ * #575757
+ * #717171
+ * #8b8b8b
+ *
+ * Tonal surface colors - same as ^ but more purple
+ * #1b1421
+ * #302936
+ * #47404c
+ * #5e5863
+ * #77727b
+ * #918c94
+ *
+ * */
+
+* {
+  background-color: #121212;
+  color: #fefefe;
+  border: 1px solid red !important; 
+}
+
 body {
 	font-family: Arial, sans-serif;
-	background-color: #f0f0f0;
-	color: #333;
 }
 
 h1 {
-	color: #0056b3;
+  color: #ab7bd8;
+}
+
+table {
+  margin: 10px auto;
+  max-width: 720px;
+}
+
+td.cat-label {
+  text-align: left;
+}
+
+th {
+
 }
 
 td {
 	text-align: right;
+  min-width: 150px;
+  padding: 2px 5px;
 }
+
+th {
+  text-align: center;
+}
+

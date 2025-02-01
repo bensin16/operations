@@ -10,11 +10,14 @@
         - strings inside of the Expense for flexibility
     - [x] set category limits
     - [x] Calculate remaining to spend
-    - [ ] dog
+    - [ ] Accounts?
     
-    - what I have:
-        - Budget that contains categories
-        - categories are fully custom
+3. webpage
+    - [x] Get basic table down
+    - [x] some table styling and css research
+    - [ ] Form to add directly to table
+    - [ ] Write to file
+    
 
 
 ### Requirements

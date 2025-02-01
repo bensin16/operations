@@ -1,27 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="stylesheet" type="text/css" href="/static/index.css">
-		<title>{{.PageTitle}}</title>
-	</head>
-	<body>
-		<h1>Budget for: {{.BudgetSheet.Month}} {{.BudgetSheet.Year}} </h1>
-		<p>Income: {{printf "%.2f" .BudgetSheet.Income}}</p>
-		<table>
-			<th>Category</th>
-			<th>Planned</th>
-			<th>Actual</th>
-			<th>Diff</th>
-			{{range $label, $cat := .BudgetSheet.Categories}}
-			<tr>
-				<td>{{$cat.Label}}</td>
-				<td>{{printf "%.2f" $cat.Limit}}</td>
-				<td>{{printf "%.2f" $cat.Spent}}</td>
-				<td>{{diff $cat.Limit $cat.Spent}}</td>
-			</tr>
-			{{end}}
-		</table>
-	</body>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/static/index.css">
+    <title>{{.PageTitle}}</title>
+  </head>
+
+  <body>
+    <h1>Budget for: {{.BudgetSheet.Month}} {{.BudgetSheet.Year}} </h1>
+    <p>Income: {{printf "%.2f" .BudgetSheet.Income}}</p>
+    <table>
+      <th>Category</th>
+      <th>Planned</th>
+      <th>Actual</th>
+      <th>Diff</th>
+      {{range $label, $cat := .BudgetSheet.Categories}}
+      <tr>
+        <td class='cat-label'>{{$cat.Label}}</td>
+        <td>{{printf "%.2f" $cat.Limit}}</td>
+        <td>{{printf "%.2f" $cat.Spent}}</td>
+        <td>{{diff $cat.Limit $cat.Spent}}</td>
+      </tr>
+      {{end}}
+    </table>
+
+    <form>
+      <td><input type='text' placeholder='category'/></td>
+      <td><input type='number' placeholder='100.00'/></td>
+      <td><input type='number' placeholder='100.00'/></td>
+      <td><input type='submit' value='add record'/></td>
+    </form>
+
+  </body>
 </html>
