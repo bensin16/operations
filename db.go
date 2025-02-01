@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"os"
 )
 
@@ -10,9 +11,23 @@ type Database struct {
 	FilePath string
 }
 
+// whats my writing format? Let's try a json encoder
 func (d *Database) Save() error {
-	d1 := []byte("hello\nworld\n")
-	err := os.WriteFile(d.FilePath, d1, 0644)
+
+	encodedBudget, err := json.Marshal(d.Budgets[1])
+	if err != nil {
+		return err
+	}
+
+	d1 := encodedBudget
+
+	f, err := os.Create(d.FilePath)
+	if err != nil {
+		panic(err) // find better way to log error then return value
+	}
+	defer f.Close()
+
+	_, err = f.Write(d1) // _ = bytes written
 	if err != nil {
 		return err
 	}

@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-var db = Database{}
+var db = Database{Budgets: make(map[int64]Budget), FilePath: "budgets.db"}
 var userId = 0
 
 type BudgetPageData struct {
@@ -67,8 +67,11 @@ func handle_index(w http.ResponseWriter, r *http.Request) {
 		}
 
 		fmt.Println(newRecord)
-		db.Save()
-		// when get new record: add it to the "database"
+		db.Budgets[1] = createBudget(1, 2025, 5196.10)
+		err = db.Save()
+		if err != nil {
+			panic(err)
+		}
 		return
 	}
 

@@ -10,14 +10,18 @@
         - strings inside of the Expense for flexibility
     - [x] set category limits
     - [x] Calculate remaining to spend
+    - [ ] database file (json)
     - [ ] Accounts?
     
 3. webpage
     - [x] Get basic table down
     - [x] some table styling and css research
     - [ ] Form to add directly to table
+        - im connecting the form to a database class that will just write json to a file
     - [ ] Write to file
     
+Bugs & for later:
+- redirect back to index after post request to add expense
 
 
 ### Requirements
