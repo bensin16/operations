@@ -6,16 +6,16 @@ import (
 )
 
 type Category struct {
-	Label string
-	Limit float64
-	Spent float64
+	Label string  `json:"label"`
+	Limit float64 `json:"limit"`
+	Spent float64 `json:"spent"`
 }
 
 type Budget struct {
-	Month      time.Month
-	Year       int32
-	Income     float64
-	Categories map[string]Category
+	Month      time.Month          `json:"month"`
+	Year       int32               `json:"year"`
+	Income     float64             `json:"income"`
+	Categories map[string]Category `json:"categories"`
 }
 
 func (b *Budget) AddCategory(c Category) error {
